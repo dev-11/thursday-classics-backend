@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     return {
         'statusCode': 200,
         "body": {
-            "data": tmdb_service.get_list()
+            "data": tmdb_service.get_list(list_id)
             # "fetched_at": "2022-08-19 16:01:18.704360",
             # "data":
             # {
