@@ -1,4 +1,4 @@
-data_bucket = "tc-data"
+data_bucket = "classic-thursday-data"
 
 tmdb_endpoints = {
     'list': 'https://api.themoviedb.org/3/list',

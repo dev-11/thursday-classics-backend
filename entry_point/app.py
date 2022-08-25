@@ -3,20 +3,27 @@ from services import service_factory as sf
 
 def lambda_handler(event, context):
 
-    # connect to tmdb api
-    # download list
-    # save list to s3 bucket
+    # done - connect to tmdb api
+    # done - download list
+    # done - save list to s3 bucket
     # every monday pick 3 movies
 
-    tmdb_service = sf.ServiceFactory().get_tmdb_service()
-    sm = sf.ServiceFactory().get_secret_manager()
+    service_factory = sf.ServiceFactory()
+
+    tmdb_service = service_factory.get_tmdb_service()
+    sm = service_factory.get_secret_manager()
     list_id = sm.get_secret("list_id")
+
+    lst = tmdb_service.get_list(list_id)
+
+    ss = service_factory.get_storage_service()
+    ss.save_or_update("data.json", lst)
 
     # TODO implement
     return {
         'statusCode': 200,
         "body": {
-            "data": tmdb_service.get_list(list_id)
+            "data": lst
             # "fetched_at": "2022-08-19 16:01:18.704360",
             # "data":
             # {
