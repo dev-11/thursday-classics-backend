@@ -1,4 +1,5 @@
 data_bucket = "classic-thursday-data"
+data_file = "movies.json"
 
 tmdb_endpoints = {
     'list': 'https://api.themoviedb.org/3/list',
