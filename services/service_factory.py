@@ -4,6 +4,7 @@ import repositories.s3_repository as s3r
 from .storage_service import StorageService
 from .secret_manager_service import SecretManagerService
 from .tmdb_service import TMDBService
+from .offer_service import OfferService
 
 
 class ServiceFactory:
@@ -14,6 +15,7 @@ class ServiceFactory:
         self._storage_service = StorageService(repo)
         self._secret_manager = SecretManagerService(env_repo)
         self._key = self._secret_manager.get_secret("tmdb_api_key")
+        self._offer_service = OfferService(self._storage_service)
 
     # def get_all_services(self):
     #     return [
@@ -28,6 +30,9 @@ class ServiceFactory:
 
     def get_storage_service(self):
         return self._storage_service
+
+    def get_offer_service(self):
+        return self._offer_service
 
 
 def get_enabled_services():

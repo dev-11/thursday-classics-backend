@@ -6,7 +6,7 @@ def lambda_handler(event, context):
     # done - connect to tmdb api
     # done - download list
     # done - save list to s3 bucket
-    # every monday pick 3 movies
+    # every week pick 3 movies
 
     service_factory = sf.ServiceFactory()
 
@@ -19,20 +19,11 @@ def lambda_handler(event, context):
     ss = service_factory.get_storage_service()
     ss.save_or_update("data.json", lst)
 
-    # TODO implement
+    os = service_factory.get_offer_service()
+
     return {
         'statusCode': 200,
         "body": {
-            "data": lst
-            # "fetched_at": "2022-08-19 16:01:18.704360",
-            # "data":
-            # {
-            #     "movies": [
-            #     {
-            #         "id": "tt0111161",
-            #         "title": "The Shawshank Redemption",
-            #         "img": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg"
-            #     }]
-            # }
+            "data": os.generate_offers()
         }
     }

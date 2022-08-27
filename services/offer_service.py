@@ -1,4 +1,5 @@
 import random
+import config as c
 
 
 class OfferService:
@@ -18,6 +19,10 @@ class OfferService:
         return offers
 
     def generate_offers(self):
-        movies = self.storage_service.get("movies")
-        random.sample(range(1, len(movies)), 3)
-        return []
+        movies = self.storage_service.get(c.data_file)
+        ids = random.sample(range(1, len(movies)), 3)
+        return [
+            movies[ids[0]],
+            movies[ids[1]],
+            movies[ids[2]]
+        ]
