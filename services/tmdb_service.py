@@ -1,7 +1,8 @@
 import config as c
 import requests
 import json
-import data_classes as dc
+
+from http import HTTPStatus
 
 
 class TMDBService:
@@ -13,11 +14,9 @@ class TMDBService:
 
     def get_list(self, list_id):
         result = requests.get(self._build_list_url(list_id))
-        titles = []
-        if result.status_code == 200:
-            api_response = json.loads(result.text)
-            titles.append([dc.Movie(i['title'], i['poster_path']) for i in api_response['items']])
 
-            return titles
+        if result.status_code == HTTPStatus.OK:
+            api_response = json.loads(result.text)
+            return [[i.get('title', i.get('original_name')), i['poster_path']] for i in api_response['items']]
 
         return []

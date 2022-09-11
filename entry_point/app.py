@@ -1,29 +1,39 @@
-from services import service_factory as sf
+from services import ServiceFactory
+import config as c
 
 
 def lambda_handler(event, context):
 
-    # done - connect to tmdb api
-    # done - download list
-    # done - save list to s3 bucket
-    # every week pick 3 movies
+    headers = event["params"]["header"]
+    update_movie_list = (
+        parse_bool(headers[c.update_movie_list_header_key])
+        if c.update_movie_list_header_key in headers
+        else False
+    )
 
-    service_factory = sf.ServiceFactory()
+    update_offers = (
+        parse_bool(headers[c.update_offers_header_key])
+        if c.update_offers_header_key in headers
+        else False
+    )
 
-    tmdb_service = service_factory.get_tmdb_service()
-    sm = service_factory.get_secret_manager()
-    list_id = sm.get_secret("list_id")
+    tcs = ServiceFactory().get_thursday_classics_service()
 
-    lst = tmdb_service.get_list(list_id)
+    if update_movie_list:
+        tcs.update_movies()
 
-    ss = service_factory.get_storage_service()
-    ss.save_or_update("data.json", lst)
+    if update_offers:
+        tcs.update_offers()
 
-    os = service_factory.get_offer_service()
+    offers = tcs.get_movies()
 
     return {
         'statusCode': 200,
         "body": {
-            "data": os.generate_offers()
+            "data": offers
         }
     }
+
+
+def parse_bool(v):
+    return str(v).lower() in ("yes", "true", "t", "1")

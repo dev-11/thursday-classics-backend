@@ -1,5 +1,6 @@
 import random
 import config as c
+from datetime import datetime as dt
 
 
 class OfferService:
@@ -7,22 +8,21 @@ class OfferService:
         self.storage_service = storage_service
 
     def has_offers(self) -> bool:
-        return False
+        return self.storage_service.has_key(c.offer_file)
 
     def get_offers(self):
-        if self.has_offers():
-            offers = self.storage_service.get("offer")
-            return offers
-
-        offers = self.generate_offers()
-        self.storage_service.save_or_update(offers, None)
+        offers = self.storage_service.get(c.offer_file)
         return offers
 
-    def generate_offers(self):
-        movies = self.storage_service.get(c.data_file)
-        ids = random.sample(range(1, len(movies)), 3)
-        return [
+    def save_offers(self, offers):
+        return self.storage_service.save_or_update(c.offer_file, offers, dt.now())
+
+    def generate_offers(self, movies):
+        ids = random.sample(range(0, len(movies)), 3)
+        offers = [
             movies[ids[0]],
             movies[ids[1]],
             movies[ids[2]]
         ]
+
+        return offers

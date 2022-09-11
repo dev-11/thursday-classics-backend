@@ -9,8 +9,11 @@ class StorageService:
         """Service to store/read data."""
         self._repo = repo
 
+    def has_key(self, key):
+        return self._repo.has_key(key)
+
     def get_cache_update_date(self, key):
-        if self._repo.has_key(key):  # noqa: W601
+        if self.has_key(key):  # noqa: W601
             metadata = self._repo.get_metadata(key)
             if "cache-update-date" not in metadata:
                 return dt(2000, 1, 1, 0, 0, 0)
