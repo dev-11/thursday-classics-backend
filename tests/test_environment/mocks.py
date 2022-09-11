@@ -19,7 +19,7 @@ def get_mocked_s3repo_returns_empty_body():
 
 
 def get_mocked_s3repo_has_key_but_no_metadata():
-    s3r = S3Repository("test- bucket")
+    s3r = S3Repository("test-bucket")
     s3r.get_body = Mock(name="get_body")
     s3r.get_body.return_value = "{}"
     s3r.get_metadata = Mock(name="get_metadata")
@@ -50,6 +50,8 @@ def get_mocked_storage_service():
     ss.get.return_value = "asdf"
     ss.save_or_update = Mock(name="save_or_update")
     ss.save_or_update.result_value = True
+    ss.has_key = Mock(name="has_key")
+    ss.has_key.result_value = True
     return ss
 
 

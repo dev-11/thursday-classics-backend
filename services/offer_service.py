@@ -17,7 +17,8 @@ class OfferService:
     def save_offers(self, offers):
         return self.storage_service.save_or_update(c.offer_file, offers, dt.now())
 
-    def generate_offers(self, movies):
+    @staticmethod
+    def generate_offers(movies):
         ids = random.sample(range(0, len(movies)), 3)
         offers = [
             movies[ids[0]],
