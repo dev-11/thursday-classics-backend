@@ -30,7 +30,7 @@ ignore:
   - "**/test*.py"
   - "**/*test.py"
   - "**/config.py"
-  - "**/tests/*.py"
+  - "tests/*.py"
   - "config.py"
   - "**/__init__.py"
   - "entry_point/*.py"
