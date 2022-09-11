@@ -2,7 +2,7 @@ from datetime import datetime as dt
 from unittest.mock import Mock
 
 from repositories import EnvironmentRepository, S3Repository
-from services import StorageService
+from services import StorageService, MovieService, OfferService, TMDBService
 
 
 def get_mocked_s3repo_returns_empty_body():
@@ -60,3 +60,34 @@ def get_env_repo():
     er.get_parameter = Mock(name="get_parameter")
     er.get_parameter.return_value = "test_value"
     return er
+
+
+def get_mocked_movie_service():
+    ms = MovieService(get_mocked_storage_service())
+    ms.get = Mock(name="get")
+    ms.get.return_value = [['title1', 'poster1'], ['title2', 'poster2'], ['title3', 'poster3']]
+    ms.has_movies = Mock(name="has_movies")
+    ms.has_movies.return_value = True
+    ms.save = Mock(name="save")
+    ms.save.return_value = True
+    return ms
+
+
+def get_mocked_offer_service():
+    s = OfferService(get_mocked_storage_service())
+    s.get_offers = Mock(name="get_offers")
+    s.get_offers.return_value = [['title1', 'poster1'], ['title2', 'poster2'], ['title3', 'poster3']]
+    s.has_offers = Mock(name="has_offers")
+    s.has_offers.return_value = True
+    s.save_offers = Mock(name="save_offers")
+    s.save_offers.return_value = True
+
+    return s
+
+
+def get_mocked_tmdb_service():
+    s = TMDBService("api_key")
+    s.get_list = Mock(name="get_list")
+    s.get_list.return_value = []
+
+    return s

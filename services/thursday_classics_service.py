@@ -18,8 +18,8 @@ class ThursdayClassicsService:
         return offers
 
     def update_movies(self):
-        list = self.tmdb_service.get_list(c.list_id)
-        self.movie_service.save(list)
+        lst = self.tmdb_service.get_list(c.list_id)
+        return self.movie_service.save(lst)
 
     def update_offers(self):
         movies = self.movie_service.get()
@@ -28,4 +28,4 @@ class ThursdayClassicsService:
         for o in offers:
             o[1] = f'{c.tmdb_endpoints["cdn_300"]}{o[1]}'
 
-        self.offer_service.save_offers(offers)
+        return self.offer_service.save_offers(offers)
