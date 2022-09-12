@@ -95,7 +95,7 @@ def get_mocked_tmdb_service():
     return s
 
 
-def get_mocked_response_for_tmdb_list():
+def get_mocked_response_for_tmdb_list(status_code=HTTPStatus.OK):
     response = {
         "items": [
             {'title': 'test_title_01', 'poster_path': 'test_poster_01'},
@@ -104,6 +104,6 @@ def get_mocked_response_for_tmdb_list():
     }
 
     mock_response = Mock()
-    mock_response.status_code = HTTPStatus.OK
+    mock_response.status_code = status_code
     mock_response.text = json.dumps(response)
     return mock_response
