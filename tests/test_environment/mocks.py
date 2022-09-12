@@ -1,5 +1,7 @@
 from datetime import datetime as dt
 from unittest.mock import Mock
+from http import HTTPStatus
+import json
 
 from repositories import EnvironmentRepository, S3Repository
 from services import StorageService, MovieService, OfferService, TMDBService
@@ -91,3 +93,17 @@ def get_mocked_tmdb_service():
     s.get_list.return_value = []
 
     return s
+
+
+def get_mocked_response_for_tmdb_list():
+    response = {
+        "items": [
+            {'title': 'test_title_01', 'poster_path': 'test_poster_01'},
+            {'original_name': 'test_title_02', 'poster_path': 'test_poster_02'}
+        ]
+    }
+
+    mock_response = Mock()
+    mock_response.status_code = HTTPStatus.OK
+    mock_response.text = json.dumps(response)
+    return mock_response
