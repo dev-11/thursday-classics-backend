@@ -11,7 +11,13 @@ class ThursdayClassicsServiceTests(unittest.TestCase):
                                       mocks.get_mocked_tmdb_service())
 
         movies = tcs.get_movies()
-        self.assertEqual([['title1', 'poster1'], ['title2', 'poster2'], ['title3', 'poster3']], movies)
+        self.assertEqual([
+            ['title1', 'poster1'],
+            ['title2', 'poster2'],
+            ['title3', 'poster3'],
+            ['title4', 'poster4'],
+            ['title5', 'poster5']
+        ], movies)
 
     def test_update_movies_returns_boolean_result(self):
         tcs = ThursdayClassicsService(mocks.get_mocked_movie_service(),
