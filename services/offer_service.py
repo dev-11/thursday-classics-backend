@@ -20,6 +20,6 @@ class OfferService:
     @staticmethod
     def generate_offers(movies):
         ids = random.sample(range(0, len(movies)), 5)
-        offers = [movies[id] for id in ids]
+        offers = [movies[_] for _ in ids]
 
         return offers
