@@ -6,3 +6,4 @@ from .offer_service import OfferService
 from .service_factory import ServiceFactory
 from .thursday_classics_service import ThursdayClassicsService
 from .movie_service import MovieService
+from .full_list_service import FullListService

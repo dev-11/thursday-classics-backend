@@ -3,8 +3,18 @@ import config as c
 
 
 def lambda_handler(event, context):
-
     headers = event["params"]["header"]
+    sf = ServiceFactory()
+
+    get_full_list = (
+        parse_bool(headers[c.get_full_list_header_key])
+        if c.get_full_list_header_key in headers
+        else False
+    )
+
+    if get_full_list:
+        return sf.get_full_list_service().get_grouped_full_list()
+
     update_movie_list = (
         parse_bool(headers[c.update_movie_list_header_key])
         if c.update_movie_list_header_key in headers
@@ -17,7 +27,7 @@ def lambda_handler(event, context):
         else False
     )
 
-    tcs = ServiceFactory().get_thursday_classics_service()
+    tcs = sf.get_thursday_classics_service()
 
     if update_movie_list:
         tcs.update_movies()

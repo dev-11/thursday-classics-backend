@@ -8,6 +8,7 @@ from .tmdb_service import TMDBService
 from .offer_service import OfferService
 from .thursday_classics_service import ThursdayClassicsService
 from .movie_service import MovieService
+from .full_list_service import FullListService
 
 
 class ServiceFactory:
@@ -29,3 +30,6 @@ class ServiceFactory:
     def get_tmdb_service(self):
         service = TMDBService(self._key)
         return service
+
+    def get_full_list_service(self):
+        return FullListService(self._movie_service)
