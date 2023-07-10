@@ -67,7 +67,13 @@ def get_env_repo():
 def get_mocked_movie_service():
     ms = MovieService(get_mocked_storage_service())
     ms.get = Mock(name="get")
-    ms.get.return_value = [['title1', 'poster1'], ['title2', 'poster2'], ['title3', 'poster3']]
+    ms.get.return_value = [
+        ['title1', 'poster1'],
+        ['title2', 'poster2'],
+        ['title3', 'poster3'],
+        ['title4', 'poster4'],
+        ['title5', 'poster5']
+    ]
     ms.has_movies = Mock(name="has_movies")
     ms.has_movies.return_value = True
     ms.save = Mock(name="save")
@@ -78,7 +84,13 @@ def get_mocked_movie_service():
 def get_mocked_offer_service():
     s = OfferService(get_mocked_storage_service())
     s.get_offers = Mock(name="get_offers")
-    s.get_offers.return_value = [['title1', 'poster1'], ['title2', 'poster2'], ['title3', 'poster3']]
+    s.get_offers.return_value = [
+        ['title1', 'poster1'],
+        ['title2', 'poster2'],
+        ['title3', 'poster3'],
+        ['title4', 'poster4'],
+        ['title5', 'poster5']
+    ]
     s.has_offers = Mock(name="has_offers")
     s.has_offers.return_value = True
     s.save_offers = Mock(name="save_offers")
