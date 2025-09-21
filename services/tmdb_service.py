@@ -13,7 +13,7 @@ class TMDBService:
 
     def get_list_by_page(self, list_id, page):
         r = requests.get(self.build_list_url(list_id, page))
-        r.raise_on_error()
+        r.raise_for_status()
         result = r.json()
         
         return [[i.get('title', i.get('original_name')), i['poster_path']] for i in result['items']], r["total_pages"]
