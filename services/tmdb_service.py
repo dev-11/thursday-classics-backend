@@ -9,7 +9,7 @@ class TMDBService:
         self._api_key = api_key
 
     def build_list_url(self, list_id, page):
-        return f'{c.tmdb_endpoints["list"]}/{list_id}?page={page}api_key={self._api_key}'
+        return f'{c.tmdb_endpoints["list"]}/{list_id}?page={page}&api_key={self._api_key}'
 
     def get_list_by_page(self, list_id, page):
         r = requests.get(self.build_list_url(list_id, page))
