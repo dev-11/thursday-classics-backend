@@ -16,7 +16,7 @@ class TMDBService:
         r.raise_for_status()
         result = r.json()
         
-        return [[i.get('title', i.get('original_name')), i['poster_path']] for i in result['items']], result["total_pages"]
+        return [[i.get('title', i.get('original_name')), i['poster_path'], i.get('release_date', i.get('first_air_date', '1900-01-01'))] for i in result['items']], result["total_pages"]
 
     def get_list(self, list_id):
         total_list = []
@@ -24,7 +24,7 @@ class TMDBService:
         first_page_items, last_page = self.get_list_by_page(list_id, 1)
         total_list.extend(first_page_items)
 
-        for idx in range(2, last_page):
+        for idx in range(2, last_page + 1):
             actual_page_items, _ = self.get_list_by_page(list_id, idx)
             total_list.extend(actual_page_items)
 
